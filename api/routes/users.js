@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 //importuję model
-const User = require("../models/user");
+const User = require("../models/users");
 //import bcrypta
 const bcrypt = require("bcrypt");
 //importuję JWT
@@ -14,7 +14,7 @@ router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     if (err) return res.status(500).json({ wiadomosc: err });
     const user = new User({
-      _id: new mongoose.Types.ObjectId(),
+      _userId: new mongoose.Types.ObjectId(),
       email: req.body.email,
       password: hash,
     });
@@ -43,7 +43,7 @@ router.post("/login", (req, res, next) => {
           return res.status(401).json({ wiadomosc: "Błąd autoryzacji" });
         //jak jest ok to zwracam JWT
         const token = jwt.sign(
-          { user: user._ud, email: user.email },
+          { user: user._id, email: user.email },
           process.env.JWT_KEY,
           { expiresIn: "1d" }
         );

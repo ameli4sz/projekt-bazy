@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 //importuję model
-const recipes = require("../models/recipes");
+const Recipes = require("../models/recipes");
 
 exports.recipes_get_all = (req, res, next) => {
-  Product.find()
+  Recipes.find()
     .then((recipes) => {
       res.status(200).json({
         wiadomość: "lista wszystkich przepisów",
@@ -17,10 +17,10 @@ exports.recipes_get_all = (req, res, next) => {
     });
 };
 
+//dodawanie przepisu
 exports.recipes_add_new = (req, res, next) => {
-  const recipes = new Recipes({
-    _recipesId: new mongoose.Types.ObjectId(),
-    _userId: req.body._userId,
+  const newRecipe = new Recipes({
+    _userId: new mongoose.Types.ObjectId(req.body._userId),
     name: req.body.name,
     ingredients: req.body.ingredients,
     tags: req.body.tags,
@@ -28,8 +28,8 @@ exports.recipes_add_new = (req, res, next) => {
     prepTime: req.body.prepTime,
   });
 
-  //zapis do bazy!!!!
-  recipes
+  //zapis do bazy
+  newRecipe
     .save()
     .then((result) => {
       res.status(201).json({
@@ -44,32 +44,48 @@ exports.recipes_add_new = (req, res, next) => {
     });
 };
 
-/*exports.products_get_by_id = (req, res, next) => {
-  const id = req.params.productId;
-  Product.findById(id).then((result) => {
+//wyszukiwanie przepisu po id
+exports.recipes_get_by_id = (req, res, next) => {
+  const id = req.params.recipesId;
+  Recipes.findById(id).then((result) => {
     res.status(200).json({
-      wiadomość: "Szczegóły produktu o numerze " + id,
+      wiadomość: "Szczegóły przepisu o numerze " + id,
       dane: result,
     });
   });
 };
 
-exports.products_update = (req, res, next) => {
-  const id = req.params.productId;
-  Product.findByIdAndUpdate(id, {
+//edytowanie przepisu
+exports.recipes_update = (req, res, next) => {
+  const id = req.params.recipesId;
+  Recipes.findByIdAndUpdate(id, {
+    _userId: req.body._userId,
     name: req.body.name,
-    price: req.body.price,
+    ingredients: req.body.ingredients,
+    tags: req.body.tags,
+    instruction: req.body.instruction,
+    prepTime: req.body.prepTime,
   }).then(() => {
     res
       .status(200)
-      .json({ wiadomość: "Zmiana danych produktu o numerze " + id });
+      .json({ wiadomość: "Zmiana danych przepisu o numerze " + id });
   });
 };
 
-exports.products_delete = (req, res, next) => {
-  const id = req.params.productId;
-  Product.findOneAndDelete(id).then((result) => {
-    res.status(200).json({ wiadomość: "Usunięcie produktu o numerze " + id });
+//usunięcie przepisu
+exports.recipes_delete = (req, res, next) => {
+  const id = req.params.recipesId;
+  Recipes.findOneAndDelete(id).then((result) => {
+    res.status(200).json({ wiadomość: "Usunięcie przepisu o numerze " + id });
   });
 };
-*/
+
+exports.recipes_get_by_tag = (req, res, next) => {
+  const tag = req.params.tags;
+  Recipes.find({ tags: tag }).then((result) => {
+    res.status(200).json({
+      wiadomość: "Znalezione przepisy z tagiem: " + tag,
+      dane: result,
+    });
+  });
+};

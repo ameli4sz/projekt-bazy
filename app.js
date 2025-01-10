@@ -10,7 +10,7 @@ const app = express();
 //połączenie z bazą danych
 const mongoose = require("mongoose");
 mongoose.connect(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@projektstudia.74j1l.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=ProjektStudia`
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.mmhju.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`
 );
 
 //logger
@@ -22,15 +22,11 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json()); //od tej pory w req.body mam informacje z części body
 
 // importuję routy
-const mealprepRoutes = require("./api/routes/mealprep");
 const recipesRoutes = require("./api/routes/recipes");
-const shoppinglistRoutes = require("./api/routes/shoppinglist");
 const usersRoutes = require("./api/routes/users");
 
 //stosuję routy
-app.use("/mealprep", mealprepRoutes);
 app.use("/recipes", recipesRoutes);
-app.use("/shoppinglist", shoppinglistRoutes);
 app.use("/users", usersRoutes);
 
 //błąd routu
