@@ -6,6 +6,6 @@ module.exports = (req, res, next) => {
     jwt.verify(token, process.env.JWT_KEY);
     next();
   } catch (err) {
-    return res.status(401).json({ wiadomosc: "Błąd autoryzaCJI" });
+    return res.status(401).json({ wiadomosc: "Błąd autoryzacji" });
   }
 };

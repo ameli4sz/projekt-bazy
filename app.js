@@ -24,11 +24,12 @@ app.use(bodyParser.json()); //od tej pory w req.body mam informacje z części b
 // importuję routy
 const recipesRoutes = require("./api/routes/recipes");
 const usersRoutes = require("./api/routes/users");
+const mealprepRoutes = require("./api/routes/mealprep");
 
 //stosuję routy
 app.use("/recipes", recipesRoutes);
 app.use("/users", usersRoutes);
-
+app.use("/mealprep", mealprepRoutes);
 //błąd routu
 app.use((req, res, next) => {
   res.status(404).json({ wiadomość: "Not Found" });
