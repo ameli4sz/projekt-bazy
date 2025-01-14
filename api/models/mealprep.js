@@ -2,18 +2,20 @@ const mongoose = require("mongoose");
 
 //schemat produktu
 const mealprepSchema = mongoose.Schema({
-  //_id nie trzeba wpisywać
-
   _userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+    ref: "users", // Referencja do kolekcji "users"
   },
   name: String,
   date: String,
-  _recipes: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "recipes",
-}]
+  recipes: [ // Upewnij się, że to pole jest poprawnie zdefiniowane
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "recipes", // Referencja do kolekcji "recipes"
+    }
+  ],
 });
 
 module.exports = mongoose.model("mealprep", mealprepSchema);
+
+

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 //importuję model
 const Mealprep = require("../models/mealprep");
 
-
+// wyświetlanie wszystkich mealprepów
 exports.mealprep_get_all = (req, res, next) => {
   Mealprep.find()
     .then((mealprep) => {
@@ -18,45 +18,34 @@ exports.mealprep_get_all = (req, res, next) => {
     });
 };
 
-//tworzenie mealprepu
 exports.mealprep_add_new = (req, res, next) => {
-    // Sprawdzenie, czy _recipes jest tablicą
-    if (!Array.isArray(req.body._recipes)) {
-      return res.status(400).json({
-        wiadomość: "Pole 'recipes' musi być tablicą identyfikatorów przepisów.",
+  const newMealprep = new Mealprep({
+    _userId: req.body._userId,
+    name: req.body.name,
+    date: req.body.date,
+    recipes: req.body.recipes, // Tablica identyfikatorów przepisów
+  });
+
+  // Zapis do bazy
+  newMealprep
+    .save()
+    .then((result) => {
+      // Populowanie przepisu
+      return Mealprep.findById(result._id).populate("recipes"); // Populowanie odniesień do przepisów
+    })
+    .then((populatedMealprep) => {
+      res.status(201).json({
+        wiadomość: "Utworzono nowy plan posiłków z dodanymi przepisami",
+        dane: populatedMealprep,
       });
-    }
-  
-    const newMealprep = new Mealprep({
-      _userId: req.body._userId,
-      name: req.body.name,
-      date: req.body.date,
-      _recipes: req.body._recipes, // Tablica identyfikatorów przepisów
+    })
+    .catch((err) => {
+      res.status(500).json({
+        wiadomość: "Błąd podczas tworzenia planu posiłków",
+        błąd: err.message,
+      });
     });
-  
-    // Zapis do bazy
-    newMealprep
-      .save()
-      .then((result) => {
-        // Jeżeli mealprep został zapisany, to teraz dodajemy przepisy do jego tablicy
-        return Mealprep.findByIdAndUpdate(
-          result._id,
-          { $push: { recipes: { $each: req.body._recipes } } }, // Dodajemy przepisy
-          { new: true } // Zwróci zaktualizowany obiekt
-        );
-      })
-      .then((updatedMealprep) => {
-        res.status(201).json({
-          wiadomość: "Utworzono nowy plan posiłków z dodanymi przepisami",
-          dane: updatedMealprep,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          wiadomość: err,
-        });
-      });
-  };
+};
   
 
 // //wyszukiwanie przepisu po id

@@ -8,13 +8,6 @@ const mealprepController = require("../controllers/mealprep");
 
 router.get("/", mealprepController.mealprep_get_all);
 
-// {
-//     "_userId": "6782696083e34b97edc5ddd5",
-//     "name": "poniedziałek9",
-//     "date": "13-01-2025",
-//     "recipes": ["678199185b62368e93f52c23"]
-// }
-
 router.post("/", checkAuth, mealprepController.mealprep_add_new);
 
 // router.get("/:recipesId", recipesController.recipes_get_by_id);
