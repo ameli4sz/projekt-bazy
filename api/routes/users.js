@@ -56,25 +56,19 @@ router.post("/login", (req, res, next) => {
 
 //wyświetlanie wszystkich użytkowników
 router.get("/", checkAuth, (req, res, next) => {
-  User.find()
-  .then((users) => {
+  User.find().then((users) => {
     res.status(200).json({
       wiadomość: "lista wszystkich użytkowników:",
-      lista: users
+      lista: users,
     });
-  })
+  });
 });
-
 
 router.delete("/:userId", checkAuth, (req, res, next) => {
   const id = req.params.userId;
-  User.findByIdAndDelete(id)
-    .then((result) => {
-      res.status(200).json(
-        {wiadomość: "Usunięto użytkownika o numerze: ", id
-      });
-    })
+  User.findByIdAndDelete(id).then((result) => {
+    res.status(200).json({ wiadomość: "Usunięto użytkownika o numerze: ", id });
+  });
 });
-
 
 module.exports = router;

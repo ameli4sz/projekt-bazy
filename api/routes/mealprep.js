@@ -10,11 +10,23 @@ router.get("/", mealprepController.mealprep_get_all);
 
 router.post("/", checkAuth, mealprepController.mealprep_add_new);
 
-// router.get("/:recipesId", recipesController.recipes_get_by_id);
+router.get("/:mealprepId", mealprepController.mealprep_get_by_id);
 
 // router.put("/:recipesId", checkAuth, recipesController.recipes_update);
 
-// router.delete("/:recipesId", checkAuth, recipesController.recipes_delete);
+router.delete("/:mealprepId", checkAuth, mealprepController.mealprep_delete);
+
+router.post(
+  "/:mealprepId/recipes",
+  checkAuth,
+  mealprepController.add_recipe_to_mealprep
+);
+
+router.delete(
+  "/:mealprepId/recipes",
+  checkAuth,
+  mealprepController.delete_recipe_from_mealprep
+);
 
 // router.get("/tags/:tags", recipesController.recipes_get_by_tag);
 

@@ -8,14 +8,13 @@ const mealprepSchema = mongoose.Schema({
   },
   name: String,
   date: String,
-  recipes: [ // Upewnij się, że to pole jest poprawnie zdefiniowane
+  recipes: [
+    // Upewnij się, że to pole jest poprawnie zdefiniowane
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "recipes", // Referencja do kolekcji "recipes"
-    }
+    },
   ],
 });
 
 module.exports = mongoose.model("mealprep", mealprepSchema);
-
-
