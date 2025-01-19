@@ -3,7 +3,6 @@ const router = express.Router();
 //autoryzacja
 const checkAuth = require("../middleware/checkAuth");
 
-//importuję kontroler
 const shoppingListController = require("../controllers/shoppingList");
 
 router.post("/", checkAuth, shoppingListController.shoppingList_add_new);

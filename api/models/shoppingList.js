@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-//schemat produktu
+//schemat listy
 const shoppingListSchema = mongoose.Schema({
   _userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +16,7 @@ const shoppingListSchema = mongoose.Schema({
   items: [
     {
       type: [String],
-      ref: "recipes", // Referencja do kolekcji "recipes"
+      ref: "recipes",
     },
   ],
 });

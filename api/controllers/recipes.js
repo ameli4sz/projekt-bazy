@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-//importuję model
 const Recipes = require("../models/recipes");
 
 exports.recipes_get_all = (req, res, next) => {

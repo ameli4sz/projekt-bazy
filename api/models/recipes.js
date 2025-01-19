@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
-//schemat produktu
+//schemat przepisu
 const recipesSchema = mongoose.Schema({
-  //_id nie trzeba wpisywać
-
   _userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",

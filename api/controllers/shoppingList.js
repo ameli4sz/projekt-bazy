@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-//importuję model
 const ShoppingList = require("../models/shoppingList");
 const Mealprep = require("../models/mealprep");
 
@@ -7,31 +6,27 @@ const Mealprep = require("../models/mealprep");
 exports.shoppingList_add_new = (req, res, next) => {
   const { _userId, _mealprepId, name } = req.body;
 
-  // Znajdź Mealprep i populuj przepisy
   Mealprep.findById(_mealprepId)
     .populate({
-      path: "recipes", // Populuj przepisy
-      select: "ingredients", // Pobieraj tylko składniki
+      path: "recipes",
+      select: "ingredients",
     })
     .then((mealprep) => {
       if (!mealprep) {
         return res.status(404).json({ message: "Mealprep nie znaleziono" });
       }
 
-      // Zbieranie wszystkich składników
       const allIngredients = mealprep.recipes.flatMap(
         (recipe) => recipe.ingredients
       );
 
-      // Usunięcie duplikatów za pomocą Set
       const uniqueIngredients = [...new Set(allIngredients)];
 
-      // Tworzenie nowej listy zakupów
       const newShoppingList = new ShoppingList({
         _userId,
         _mealprepId,
         name,
-        items: uniqueIngredients, // Przypisujemy unikalne składniki
+        items: uniqueIngredients,
       });
 
       return newShoppingList.save().then((savedList) => {

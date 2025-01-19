@@ -1,18 +1,17 @@
 const mongoose = require("mongoose");
 
-//schemat produktu
+//schemat mealprepu
 const mealprepSchema = mongoose.Schema({
   _userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users", // Referencja do kolekcji "users"
+    ref: "users",
   },
   name: String,
   date: String,
   recipes: [
-    // Upewnij się, że to pole jest poprawnie zdefiniowane
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "recipes", // Referencja do kolekcji "recipes"
+      ref: "recipes",
     },
   ],
 });

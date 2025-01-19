@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-//importuję model
 const Mealprep = require("../models/mealprep");
 
 // wyświetlanie wszystkich mealprepów
@@ -28,7 +27,7 @@ exports.mealprep_add_new = (req, res, next) => {
     _userId: req.body._userId,
     name: req.body.name,
     date: req.body.date,
-    recipes: req.body.recipes, // Tablica identyfikatorów przepisów
+    recipes: req.body.recipes,
   });
 
   // Zapis do bazy
@@ -120,30 +119,3 @@ exports.delete_recipe_from_mealprep = (req, res, next) => {
       res.status(500).json({ error: err.message });
     });
 };
-
-// //edytowanie przepisu
-// exports.recipes_update = (req, res, next) => {
-//   const id = req.params.recipesId;
-//   Recipes.findByIdAndUpdate(id, {
-//     _userId: req.body._userId,
-//     name: req.body.name,
-//     ingredients: req.body.ingredients,
-//     tags: req.body.tags,
-//     instruction: req.body.instruction,
-//     prepTime: req.body.prepTime,
-//   }).then(() => {
-//     res
-//       .status(200)
-//       .json({ wiadomość: "Zmiana danych przepisu o numerze " + id });
-//   });
-// };
-
-// exports.recipes_get_by_tag = (req, res, next) => {
-//   const tag = req.params.tags;
-//   Recipes.find({ tags: tag }).then((result) => {
-//     res.status(200).json({
-//       wiadomość: "Znalezione przepisy z tagiem: " + tag,
-//       dane: result,
-//     });
-//   });
-// };
