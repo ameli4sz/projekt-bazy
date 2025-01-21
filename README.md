@@ -1,26 +1,17 @@
-# MealPrep
-> MealPrep to narzędzie, które pomaga w zarządzaniu posiłkami, planowaniu diety oraz organizacji zakupów spożywczych. Stworzony z myślą o osobach dbających o zdrowe odżywianie oraz oszczędność czasu.
-
 ## Table of Contents
-- **[Installing](#installing)**<br>
 - **[Overview](#overview)**<br>
-- **[Used Technology](##used-technology-endpoints)**<br>
+- **[Used Technology](#used-technology)**<br>
+- **[Setup](#setup)**<br>
+- **[Authorization](#authorization)**<br>
 - **[API Endpoints](#api-endpoints)**<br>
-- **[User Endpoints](##user-endpoints)**<br>
-- **[Recipes Endpoints](##recipes-endpoint)**<br>
-- **[Mealprep Endpoints](##mealprep-endpoints)**<br>
-- **[Shopping List Endpoints](##shopping-list-endpoints)**<br>
-
-
-
+- **[User Endpoints](#user-endpoints)**<br>
+- **[Recipes Endpoints](#recipes-endpoints)**<br>
+- **[Mealprep Endpoints](#mealprep-endpoints)**<br>
+- **[Shopping List Endpoints](#shopping-list-endpoints)**<br>
 
 
 ## Overview
-MealPrep umożliwia:
-- Tworzenie planów posiłków wraz z przypisanymi przepisami.
-- Zarządzanie przepisami i ich składnikami.
-- Tworzenie list zakupów na podstawie przepisów w planach posiłków.
-- Autoryzację i zarządzanie użytkownikami.
+With this server REST API it is possible to sign and log in users, add data to database made in MongoDB and filter added data. Project is about adding recipes, making mealpreps and, based on them, generating shopping lists.
 
 
 ## Used Technology
@@ -33,27 +24,26 @@ MealPrep umożliwia:
 - **Body-parser** 
 - **Morgan** 
 
-
-## Funkcjonalności
-- **Zarządzanie przepisami:**
-- Tworzenie, edycja, usuwanie i wyszukiwanie przepisów.
-- **Zarządzanie planami posiłków:**
-- Tworzenie, usuwanie i wyszukiwanie planów posiłków.
-- Dodawanie i usuwanie przepisów w planach posiłków.
-- Wyświetlanie wszystkich utworzonych planów posiłków.
-- **Zarządzanie listami zakupów:**
-- Generowanie list zakupów na podstawie stworzonego planu posiłków.
-- Wyszukiwanie i usuwanie listy zakupów.
-- **System użytkowników:**
-- Rejestracja i logowanie.
-- Autoryzacja.
-
-
-
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
 
-Proceed to describe how to install / setup one's local environment / get started with the project.
+`nodemon server.js`
+
+## Authorization
+
+```js
+POST /users/login
+
+Expected Body: 
+{
+    "email": "adam.nowak@gmail.com",
+    "password": "3322"
+}
+
+Expected Response:
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjc4ZmNkODQ3MTBmMjljMWU1NWI1YjdkIiwiZW1haWwiOiJhZGFtMS5ub3dha0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc0Nzg1MjEsImV4cCI6MTczNzU2NDkyMX0._aDut6Vge4sV8pOd1skJ5KM81aDUikFP9sCf2zHQZoc"
+```
+
+Genereted JSON Web Token must be copied to the authorization part with Bearer Token type.
 
 # API Endpoints
 
@@ -99,7 +89,7 @@ POST /users/signup
 
 Expected Body: 
 {
-    "mail": "adam.nowak@gmail.com",
+    "email": "adam.nowak@gmail.com",
     "password": "3322"
 }
 
@@ -115,7 +105,7 @@ POST /users/login
 
 Expected Body: 
 {
-    "mail": "adam.nowak@gmail.com",
+    "email": "adam.nowak@gmail.com",
     "password": "3322"
 }
 
@@ -124,6 +114,7 @@ Expected Response:
 ```
 
 ## GET All Users
+### Authorization required
 ```js
 GET /users
 
@@ -141,6 +132,7 @@ Expected Response:
 ```
 
 ## DELETE User
+### Authorization required
 ```js
 DELETE /users/:userId
 
@@ -157,7 +149,7 @@ Expected Response:
 }
 ```
 
-# Recipe Endpoints
+# Recipes Endpoints
 ## GET All Recipes
 ```js
 GET /recipes
@@ -190,6 +182,7 @@ Expected Response:
 ```
 
 ## POST Recipe
+### Authorization required
 ```js
 POST /recipes
 
@@ -267,6 +260,7 @@ Expected Response:
 ```
 
 ## PUT Recipe
+### Authorization required
 ```js
 PUT /recipes/:recipesId
 
@@ -297,6 +291,7 @@ Expected Response:
 ```
 
 ## DELETE Recipe
+### Authorization required
 ```js
 DELETE /recipe/:recipesId
 
@@ -367,6 +362,7 @@ Expected Response:
 ```
 
 ## POST Mealprep
+### Authorization required
 ```js
 POST /mealprep
 
@@ -451,6 +447,7 @@ Expected Response:
 ```
 
 ## DELETE Mealprep
+### Authorization required
 ```js
 DELETE /mealprep/:mealprepId
 
@@ -460,7 +457,8 @@ Expected Response:
 }
 ```
 
-##POST Recipe to the Mealprep
+## POST Recipe to the Mealprep
+### Authorization required
 ```js
 POST /mealprep/:mealprepId/recipes
 
@@ -504,6 +502,7 @@ Expected Response:
 ```
 
 ## DELETE Recipe from the Mealprep
+### Authorization required
 ```js
 DELETE /mealprep/:mealprepId/recipes
 
@@ -548,6 +547,7 @@ Expected Response:
 
 # Shopping List Endpoints
 ## POST Shopping List
+### Authorization required
 ```js
 POST /shoppingList
 
@@ -579,6 +579,7 @@ Expected Response:
 ```
 
 ## DELETE Shopping List
+### Authorization required
 ```js
 DELETE /shoppingList/:shoppingListId
 
