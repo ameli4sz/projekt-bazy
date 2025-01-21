@@ -53,7 +53,7 @@ User
 | POST   | /users/signup          | registers new users                              |
 | POST   | /users/login           | logins into user account                         |
 | GET    | /users                 | gets list with all users and their data          |
-| DELETE | /users/:userId         | deletes users with choosen userId                |
+| DELETE | /users/:usersId         | deletes users with choosen usersId              |
 
 Recipe
 | Method | Route                  | Description                                        |
