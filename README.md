@@ -26,7 +26,7 @@ With this server REST API it is possible to sign and log in users, add data to d
 
 ## Setup
 
-`nodemon server.js`
+Type `cd projekt-bazy` in console to move to the proper directory and make connection with server by typing `nodemon server.js`.
 
 ## Authorization
 
@@ -119,6 +119,7 @@ Expected Response:
 GET /users
 
 Expected Response:
+{
 "wiadomość": "lista wszystkich użytkowników:",
     "lista": [
         {
@@ -612,36 +613,5 @@ Expected Response:
     }
 }
 ```
-
-
-
-
-## Endpoints
-- **Użytkownicy**
-- POST localhost:3000/users/signup - Rejestracja użytkownika.
-- POST localhost:3000/users/login - Logowanie użytkownika (autoryzacja wymagana).
-- GET localhost:3000/users - Wyświetlenie listy użytkowników (autoryzacja wymagana).
-- DELETE localhost:3000/users/:userId - Usunięcie użytkownika (autoryzacja wymagana).
-
--  **Przepisy**
-- GET localhost:3000/recipes - Wyświetlenie wszystkich przepisów.
-- POST localhost:3000/recipes - Dodanie nowego przepisu (autoryzacja wymagana).
-- GET localhost:3000/recipes/:recipesId - Wyświetlenie szczegółów przepisu.
-- PUT localhost:3000/recipes/:recipesId - Edycja przepisu (autoryzacja wymagana).
-- DELETE localhost:3000/recipes/:recipesId - Usunięcie przepisu (autoryzacja wymagana).
-- GET localhost:3000/recipes/tags/:tags - Wyświetlenie przepisów z określonym tagiem.
-
--  **Plan posiłków**
-- GET localhost:3000/mealprep - Wyświetlenie wszystkich planów posiłków.
-- POST localhost:3000/mealprep - Dodanie nowego planu posiłków (autoryzacja wymagana).
-- GET localhost:3000/mealprep/:mealprepId - Wyświetlenie szczegółów planu posiłków.
-- DELETE localhost:3000/mealprep/:mealprepId - Usunięcie planu posiłków (autoryzacja wymagana).
-- POST localhost:3000/mealprep/:mealprepId/recipes - Dodanie przepisu do planu posiłków (autoryzacja wymagana).
-- DELETE localhost:3000/mealprep/:mealprepId/recipes - Usunięcie przepisu z planu posiłków (autoryzacja wymagana).
-
--  **Lista zakupów**
-- POST localhost:3000/shoppingList - Tworzenie nowej listy zakupów (autoryzacja wymagana).
-- GET localhost:3000/shoppingList/:shoppingListId - Wyświetlenie listy zakupów.
-- DELETE localhost:3000/shoppingList/:shoppingListId - Usunięcie listy zakupów (autoryzacja wymagana).
 
 
